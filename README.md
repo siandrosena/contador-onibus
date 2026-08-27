@@ -43,6 +43,37 @@ Vídeo → YOLOv8 (detecção) → ByteTrack (rastreamento por ID)
 - Gera dado confiável para **decisão de rota, escala e receita**
 - Base para indicadores operacionais (fluxo por horário, pico de embarque)
 
+## 🚀 Como rodar
+
+```bash
+python -m venv venv
+venv\Scripts\activate          # Windows
+pip install -r requirements.txt
+
+python src/counter.py --source caminho/do/video.mp4 --save-video
+```
+
+Principais opções:
+
+| Flag | Descrição |
+|---|---|
+| `--line` | Linha de contagem `x1,y1,x2,y2`. Valores ≤1 são tratados como razão do frame (padrão: linha horizontal no meio) |
+| `--conf` | Confiança mínima de detecção (padrão 0.35) |
+| `--video-start-time` | Horário real (HH:MM) do início do vídeo, para calcular timestamp dos eventos |
+| `--window-start` / `--window-end` | Só loga eventos dentro do corte de horário (ex.: `20:30` / `24:30`) |
+| `--save-video` | Salva vídeo anotado com caixas, IDs e linha de contagem |
+
+## ✅ Testes
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/
+```
+
+Os testes cobrem a lógica de negócio que não depende do modelo (`src/crossing.py`): detecção de cruzamento de linha, direção (entrada/saída) e a deduplicação por troca de ID do tracker — o núcleo do que o pipeline promete resolver.
+
+`scripts/make_demo_video.py` gera um vídeo sintético (formas geométricas, não pessoas) só para smoke test do pipeline ponta a ponta — leitura de vídeo, chamada ao YOLO+ByteTrack e escrita do CSV. Não valida acurácia de detecção; para isso, aponte `--source` para um vídeo real com pessoas.
+
 ## 🌍 Contexto real
 
 Projeto nascido de uma necessidade real de uma **empresa de transporte de passageiros**, onde atuo estruturando dados operacionais e construindo automações com IA para reduzir desperdício e apoiar decisão.
