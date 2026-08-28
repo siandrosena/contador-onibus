@@ -85,7 +85,7 @@ Os testes cobrem a lógica de negócio que não depende do modelo (`src/crossing
 
 ### ⚠️ Limitações conhecidas
 
-- **Testado com câmeras reais de veículos diferentes: funcionou bem numa, confundiu em outra.** Ângulo, posição e qualidade de câmera diferentes entre veículos afetam a detecção/rastreamento — o sistema não generaliza automaticamente pra qualquer câmera sem calibrar `--line`, `--conf` e, possivelmente, a posição de instalação da câmera por veículo.
+- **Priorizei o sistema de pneus primeiro** (ROI mais claro e mais rápido de provar) e deixei a validação completa deste projeto pra próxima fase — por isso ele ainda não tem o mesmo nível de teste em campo que o [fleet-maintenance-priority-engine](https://github.com/siandrosena/fleet-maintenance-priority-engine). O teste real que já fiz mostrou que a calibração (`--line`, `--conf`, posição da câmera) precisa ser ajustada por veículo, não é plug-and-play entre câmeras diferentes — fica pro próximo ciclo.
 - O smoke test automatizado usa um vídeo sintético (formas geométricas) só pra provar que o pipeline roda ponta a ponta — a validação de acurácia real depende de testar com câmera/vídeo de cada veículo.
 - **A dedução de troca de ID é geométrica (distância + janela de frames), não visual** — não compara a aparência da pessoa, só posição. Duas pessoas diferentes cruzando muito perto uma da outra, no mesmo instante, podem confundir o sistema.
 - **Uma única linha de contagem** — não lida com múltiplas portas/entradas no mesmo vídeo sem rodar o script mais de uma vez com linhas diferentes.
