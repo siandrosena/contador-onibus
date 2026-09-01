@@ -73,7 +73,7 @@ pytest tests/
 
 Os testes cobrem a lógica de negócio que não depende do modelo (`src/crossing.py`): detecção de cruzamento de linha, direção (entrada/saída) e a deduplicação por troca de ID do tracker — o núcleo do que o pipeline promete resolver.
 
-`scripts/make_demo_video.py` gera um vídeo sintético (formas geométricas, não pessoas) só para smoke test do pipeline ponta a ponta — leitura de vídeo, chamada ao YOLO+ByteTrack e escrita do CSV. Não valida acurácia de detecção; para isso, aponte `--source` para um vídeo real com pessoas.
+`python scripts/make_demo_video.py` gera um vídeo sintético (formas geométricas, não pessoas) só para smoke test do pipeline ponta a ponta — leitura de vídeo, chamada ao YOLO+ByteTrack e escrita do CSV. Não valida acurácia de detecção; para isso, aponte `--source` para um vídeo real com pessoas.
 
 ### Stack
 
